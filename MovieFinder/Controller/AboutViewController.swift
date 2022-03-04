@@ -6,14 +6,21 @@
 //
 
 import UIKit
+import CoreData
 
 class AboutViewController: UIViewController, MovieSecondDelegate{
     
+    // var fromHomeVC: Bool? = true
     
+    var idApi: String?
     
-    var id:String?
+    var index: Int?
     
-    var movieSecondManager = MovieManager()
+//    var helper = Helper.sharedInstance
+    @IBOutlet weak var savedButtonOutlet:UIBarButtonItem!
+    
+    var movieManagerStruct = MovieManager()
+    
     @IBOutlet weak var movieName: UILabel!
     @IBOutlet weak var producerlabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
@@ -29,30 +36,23 @@ class AboutViewController: UIViewController, MovieSecondDelegate{
     @IBOutlet weak var awardsLbl: UILabel!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        movieSecondManager.delegateSecond = self
-        movieSecondManager.performRequest(id!)
-        movieSecondManager.performSecondRequest(id ?? "")
-        //fetchDetailedData(by: id)
-        
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-//        view.addSubview(scrollView)
-//        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2000)
-//        scrollView.contentOffset = CGPoint(x: 50, y: 40)
-//
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        movieManagerStruct.delegateSecond = self
+        movieManagerStruct.performRequest(idApi!)
+        movieManagerStruct.performSecondRequest(idApi ?? "")
+    }
     
     func didSecondUpdate(_ movieManager: MovieManager, movieSecond: MovieSecondData) {
         DispatchQueue.main.async {
             
+            // about vc screen items. it is coming from second api data. 
             self.movieName.text = movieSecond.title
             self.producerlabel.text = movieSecond.director
             self.posterImageView.sd_setImage(with: URL(string: movieSecond.poster))
@@ -65,7 +65,23 @@ class AboutViewController: UIViewController, MovieSecondDelegate{
             self.starringLbl.text = "Starring:  \(movieSecond.actors)"
             self.writersLbl.text = "Writers: \(movieSecond.writer)"
             self.awardsLbl.text = "Awards: \(movieSecond.awards)"
-            print(movieSecond.imdbRating)
+        }
+    }
+    
+    @IBAction func savedPageClicked(_ sender: UIButton) {
+        guard let idApi = idApi else { return }
+        
+        // check save. if there is not movie with spesific id save move and if there is id in the array, delete the movie
+        if Helper.sharedInstance.movieIdArray.contains(idApi) {
+            guard let indeh = Helper.sharedInstance.movieIdArray.firstIndex(of: idApi) else {return}
+            Helper.sharedInstance.movieIdArray.remove(at: indeh)
+            print("YEAH CONTAIN")
+            savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
+            
+        }else {
+            Helper.sharedInstance.movieIdArray.append(idApi)
+            print(Helper.sharedInstance.movieIdArray)
+            savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
         }
     }
 }

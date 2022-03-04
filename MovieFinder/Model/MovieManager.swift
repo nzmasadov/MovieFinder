@@ -28,7 +28,6 @@ struct MovieManager {
     func performSecondRequest(_ id: String) {
         let url = "http://www.omdbapi.com/?i=\(id)&apikey=95e7e8fc"
         guard let urlStringFormat = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
-
         guard let urlString = URL(string: urlStringFormat) else {return}
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: urlString) { data, response, error in
@@ -74,7 +73,7 @@ struct MovieManager {
                     guard let safeData = data else {return}
                     guard let movie = parseJson(with: safeData) else {return}
                     delegate?.didUpdateMovie(self, movieData: movie)
-                    print("hey moviedata \(movie.search[0].year)")
+                    
                 }
             }
         }

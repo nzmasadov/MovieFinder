@@ -14,15 +14,15 @@
 		BF295F4727ACFD13007AFCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF295F4627ACFD13007AFCB5 /* Assets.xcassets */; };
 		BF295F4A27ACFD13007AFCB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF295F4827ACFD13007AFCB5 /* LaunchScreen.storyboard */; };
 		BF295F5227ACFE4F007AFCB5 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */; };
-		BF295F5427ACFE76007AFCB5 /* SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5327ACFE76007AFCB5 /* SafariVC.swift */; };
 		BF295F5827ACFE95007AFCB5 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5727ACFE95007AFCB5 /* UserVC.swift */; };
-		BF295F5A27ACFF3C007AFCB5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5927ACFF3C007AFCB5 /* TabBarController.swift */; };
-		BF295F6327AD17DF007AFCB5 /* Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F6227AD17DF007AFCB5 /* Old.swift */; };
+		BF295F6327AD17DF007AFCB5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F6227AD17DF007AFCB5 /* Constans.swift */; };
 		BF295F6B27AD1A23007AFCB5 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */; };
 		BF40CCD127B3BFA600FF32D0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */; };
 		BF4DDD3627B6B7ED00A4A477 /* MovieSecondData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */; };
+		BF80E46E27CA343A00223F79 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80E46D27CA343A00223F79 /* Helper.swift */; };
 		BFB68B1027B56155003A0D1F /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB68B0F27B56155003A0D1F /* MovieManager.swift */; };
 		BFB68B1227B565D1003A0D1F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB68B1127B565D0003A0D1F /* Movie.swift */; };
+		BFBA734227CFA3E000D615F2 /* SavedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA734127CFA3E000D615F2 /* SavedCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,15 +35,15 @@
 		BF295F4927ACFD13007AFCB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF295F4B27ACFD13007AFCB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		BF295F5327ACFE76007AFCB5 /* SafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariVC.swift; sourceTree = "<group>"; };
 		BF295F5727ACFE95007AFCB5 /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
-		BF295F5927ACFF3C007AFCB5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		BF295F6227AD17DF007AFCB5 /* Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Old.swift; sourceTree = "<group>"; };
+		BF295F6227AD17DF007AFCB5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSecondData.swift; sourceTree = "<group>"; };
+		BF80E46D27CA343A00223F79 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		BFB68B0F27B56155003A0D1F /* MovieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
 		BFB68B1127B565D0003A0D1F /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		BFBA734127CFA3E000D615F2 /* SavedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0CB38F79DFD5633FB6D269F /* Pods-MovieFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieFinder.release.xcconfig"; path = "Target Support Files/Pods-MovieFinder/Pods-MovieFinder.release.xcconfig"; sourceTree = "<group>"; };
 		E17E4E5188524AC420FEC078 /* Pods_MovieFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -106,17 +106,17 @@
 				BF295F4627ACFD13007AFCB5 /* Assets.xcassets */,
 				BF295F4827ACFD13007AFCB5 /* LaunchScreen.storyboard */,
 				BF295F4B27ACFD13007AFCB5 /* Info.plist */,
+				BF295F6227AD17DF007AFCB5 /* Constans.swift */,
 			);
 			path = MovieFinder;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		BF295F5F27AD17A9007AFCB5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */,
 				BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */,
-				BF295F5927ACFF3C007AFCB5 /* TabBarController.swift */,
-				BF295F5327ACFE76007AFCB5 /* SafariVC.swift */,
 				BF295F5727ACFE95007AFCB5 /* UserVC.swift */,
 			);
 			path = Controller;
@@ -137,7 +137,8 @@
 				BFB68B1127B565D0003A0D1F /* Movie.swift */,
 				BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */,
 				BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */,
-				BF295F6227AD17DF007AFCB5 /* Old.swift */,
+				BFBA734127CFA3E000D615F2 /* SavedCollectionViewCell.swift */,
+				BF80E46D27CA343A00223F79 /* Helper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,12 +259,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFB68B1227B565D1003A0D1F /* Movie.swift in Sources */,
+				BF80E46E27CA343A00223F79 /* Helper.swift in Sources */,
+				BFBA734227CFA3E000D615F2 /* SavedCollectionViewCell.swift in Sources */,
 				BFB68B1027B56155003A0D1F /* MovieManager.swift in Sources */,
 				BF295F5827ACFE95007AFCB5 /* UserVC.swift in Sources */,
-				BF295F5A27ACFF3C007AFCB5 /* TabBarController.swift in Sources */,
-				BF295F6327AD17DF007AFCB5 /* Old.swift in Sources */,
+				BF295F6327AD17DF007AFCB5 /* Constans.swift in Sources */,
 				BF295F3E27ACFD12007AFCB5 /* AppDelegate.swift in Sources */,
-				BF295F5427ACFE76007AFCB5 /* SafariVC.swift in Sources */,
 				BF295F6B27AD1A23007AFCB5 /* MovieCollectionViewCell.swift in Sources */,
 				BF295F5227ACFE4F007AFCB5 /* HomeVC.swift in Sources */,
 				BF40CCD127B3BFA600FF32D0 /* AboutViewController.swift in Sources */,
@@ -427,7 +428,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,7 +459,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

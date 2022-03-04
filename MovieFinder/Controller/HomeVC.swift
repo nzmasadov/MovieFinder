@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import CoreData
 
 class HomeVC: UIViewController {
     
@@ -29,7 +30,7 @@ class HomeVC: UIViewController {
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+  //      collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
         searchTextField.delegate = self
         searchTextField.backgroundColor = #colorLiteral(red: 0.9372549653, green: 0.9372549057, blue: 0.9372549057, alpha: 1)
@@ -57,6 +58,7 @@ extension HomeVC: UICollectionViewDataSource{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as! MovieCollectionViewCell
         DispatchQueue.main.async {
             cell.movieTitleLbl.text = self.movie?.search[indexPath.row].title
+
          //   cell.movieRatingLbl.text = self.movie?.search[indexPath.row].year
             if let poster = self.movie?.search[indexPath.row].poster {
                 cell.movieImageView.sd_setImage(with: URL(string: (poster)))
@@ -68,13 +70,15 @@ extension HomeVC: UICollectionViewDataSource{
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("huuuu")
             if let movieId = movie?.search[indexPath.row].imdbID {
-                print("Helloo\(movieId)")
                 let board = UIStoryboard(name: "Main", bundle: nil)
                 let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutViewController
-                aboutVC.id = movieId
-                present(aboutVC, animated: true, completion: nil)
+                aboutVC.idApi = movieId
+  //              aboutVC.fromHomeVC = true
+                // Button control
+
+                self.navigationController?.pushViewController(aboutVC, animated: true)
+//                present(aboutVC, animated: true, completion: nil)
         }
     }
 }
@@ -104,6 +108,7 @@ extension HomeVC: MovieManagerDelegate {
 }
 
 extension HomeVC: UITextFieldDelegate {
+    
     @objc func textFieldDidChange(_ textField:UITextField) {
         if let searchName = textField.text {
             print(searchName)
@@ -119,3 +124,4 @@ extension HomeVC: UITextFieldDelegate {
         self.view.endEditing(true)
     }
 }
+

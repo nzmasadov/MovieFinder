@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import SDWebImage
 
 class MovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitleLbl: UILabel!
-    @IBOutlet weak var movieRatingLbl: UILabel!
+  //  @IBOutlet weak var movieRatingLbl: UILabel!
 }

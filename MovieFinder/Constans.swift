@@ -7,7 +7,28 @@
 
 import UIKit
 
-
+struct K {
+    static let entityName = "Details"
+    
+    static let movieName = "movieName"
+    static let producerName = "producerName"
+    static let releaseDate = "releaseDate"
+    static let genre = "genre"
+    static let runTime = "runTime"
+    static let boxOffice = "boxOffice"
+    static let rate = "rate"
+    static let about = "about"
+    static let starring = "starring"
+    static let writers = "writers"
+    static let awards = "awards"
+    static let posterImage = "posterImage"
+    static let uuidMovie = "id"
+    static let idApi = "idApi"
+    
+    // save button image
+    static let savedImgFilled = "savedfilled"
+    static let savedImgEmpty = "savedempty"
+}
 
 
 
