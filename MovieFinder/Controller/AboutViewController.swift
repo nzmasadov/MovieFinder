@@ -73,9 +73,8 @@ class AboutViewController: UIViewController, MovieSecondDelegate{
         
         // check save. if there is not movie with spesific id save move and if there is id in the array, delete the movie
         if Helper.sharedInstance.movieIdArray.contains(idApi) {
-            guard let indeh = Helper.sharedInstance.movieIdArray.firstIndex(of: idApi) else {return}
-            Helper.sharedInstance.movieIdArray.remove(at: indeh)
-            print("YEAH CONTAIN")
+            guard let index = Helper.sharedInstance.movieIdArray.firstIndex(of: idApi) else {return}
+            Helper.sharedInstance.movieIdArray.remove(at: index)
             savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
             
         }else {

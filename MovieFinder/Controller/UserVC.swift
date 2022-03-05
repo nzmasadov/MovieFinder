@@ -16,15 +16,12 @@ class UserVC: UIViewController {
     var movieManager = MovieManager()
     var movieSecondData: MovieSecondData?
     
- 
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionViewSaved.dataSource = self
         collectionViewSaved.delegate = self
         movieManager.delegateSecond = self
-        print("huucumun")
     }
     
     override func viewWillAppear(_ animated: Bool) {
