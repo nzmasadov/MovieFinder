@@ -11,21 +11,21 @@ protocol MovieManagerDelegate {
     func  didUpdateMovie(_ movieManager:MovieManager, movieData: Movie)
     func didFailWithError (error: Error)
 }
-protocol MovieSecondDelegate {
-    func didSecondUpdate (_ movieManager: MovieManager, movieSecond:MovieSecondData)
+protocol MovieDetailedDelegate {
+    func didDetailedUpdate (_ movieManager: MovieManager, movieSecond:MovieDetailedData)
 }
 
 struct MovieManager {
     
     var delegate: MovieManagerDelegate?
-    var delegateSecond: MovieSecondDelegate?
+    var delegateDetailed: MovieDetailedDelegate?
     
     let movieUrl = "https://www.omdbapi.com/?&apikey=95e7e8fc&s="
   //  let movieSecondUrl = "http://www.omdbapi.com/?i=&apikey=95e7e8fc"
         
   
         
-    func performSecondRequest(_ id: String) {
+    func performDetailedRequest(_ id: String) {
         let url = "http://www.omdbapi.com/?i=\(id)&apikey=95e7e8fc"
         guard let urlStringFormat = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         guard let urlString = URL(string: urlStringFormat) else {return}
@@ -36,7 +36,7 @@ struct MovieManager {
             }else{
                 if let safeData = data {
                     guard let movieSecondData = parseSecondJSON(safeData) else {return}
-                    delegateSecond?.didSecondUpdate(self, movieSecond: movieSecondData)
+                    delegateDetailed?.didDetailedUpdate(self, movieSecond: movieSecondData)
                     print(movieSecondData.director)
                 }
             }
@@ -45,10 +45,10 @@ struct MovieManager {
     }
     
     
-    func parseSecondJSON(_ data: Data) -> MovieSecondData? {
+    func parseSecondJSON(_ data: Data) -> MovieDetailedData? {
         let decoder = JSONDecoder()
         do{
-        let decoderdata = try decoder.decode(MovieSecondData.self, from: data)
+        let decoderdata = try decoder.decode(MovieDetailedData.self, from: data)
             print(decoderdata.awards)
             return decoderdata
         }catch{

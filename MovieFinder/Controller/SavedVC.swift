@@ -8,13 +8,12 @@
 import UIKit
 import SDWebImage
 
-class UserVC: UIViewController {
+class SavedVC: UIViewController {
     
     @IBOutlet weak var collectionViewSaved: UICollectionView!
     
     
     var movieManager = MovieManager()
-    var movieSecondData: MovieSecondData?
     
     
     override func viewDidLoad() {
@@ -22,11 +21,9 @@ class UserVC: UIViewController {
         
         collectionViewSaved.dataSource = self
         collectionViewSaved.delegate = self
-        movieManager.delegateSecond = self
         
-        
+        // when user press the save button, the saved data come here.
         NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("passData"), object: nil)
-        
         
     }
     
@@ -35,58 +32,23 @@ class UserVC: UIViewController {
         DispatchQueue.main.async {
             self.collectionViewSaved.reloadData()
         }
-        
-        //        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollection), name: NSNotification.Name("passSavedData"), object: nil)
+     
     }
     
     @objc func getData() {
         if let movie = Helper.sharedInstance.movieIdArray {
             for idMovie in movie {
-                movieManager.performSecondRequest(idMovie)
-                print("HuuID\(idMovie)")
+                // saved id came here one by one then progressing start and move to movieManager for decoding. then we gain pure data.
+                movieManager.performDetailedRequest(idMovie)
             }
         }
     }
-    
-    //    @objc func reloadCollection() {
-    //        collectionViewSaved.reloadData()
-    //    }
+   
 }
 
 
-//    override func viewWillDisappear(_ animated: Bool) {
-//        print("huuDisappear")
-//    }
 
-extension UserVC: MovieManagerDelegate, MovieSecondDelegate {
-    func didSecondUpdate(_ movieManager: MovieManager, movieSecond: MovieSecondData) {
-        // movieSecondData'ya protokol ile datalari oturduk
-        movieSecondData = movieSecond
-        guard let movieSecondData = movieSecondData else {return}
-        if Helper.sharedInstance.savedDataArray.contains(movieSecondData) != true {
-            Helper.sharedInstance.savedDataArray.append(movieSecondData)
-            print("I append \(Helper.sharedInstance.savedDataArray)")
-        }else {
-            print("hi")
-        }
-        DispatchQueue.main.async {
-            self.collectionViewSaved.reloadData()
-        }
-        
-    }
-    
-    func didUpdateMovie(_ movieManager: MovieManager, movieData: Movie) {
-        print("hi movie")
-    }
-    
-    func didFailWithError(error: Error) {
-        movieSecondData = nil
-        print("ERROR")
-    }
-}
-
-
-extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SavedVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Helper.sharedInstance.movieIdArray?.count ?? 0
     }
@@ -94,8 +56,8 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewSaved.dequeueReusableCell(withReuseIdentifier: "SavedCollectionViewCell", for: indexPath) as! SavedCollectionViewCell
         DispatchQueue.main.async {
-            cell.savedMovieTitle.text = Helper.sharedInstance.savedDataArray[indexPath.row].title
-            let imgUrl = Helper.sharedInstance.savedDataArray[indexPath.row].poster
+            cell.savedMovieTitle.text = Helper.sharedInstance.movieTitleArray?[indexPath.row]
+            guard let imgUrl = Helper.sharedInstance.moviePosterArray?[indexPath.row] else {return}
             cell.savedImgView.sd_setImage(with: URL(string: imgUrl))
         }
         return cell
@@ -104,18 +66,23 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.size.width/2.0 - 7, height: 330)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let board = UIStoryboard(name: "Main", bundle: nil)
-        let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutViewController
-        aboutVC.idApi = Helper.sharedInstance.movieIdArray?[indexPath.row]
-        aboutVC.savedData = Helper.sharedInstance.savedDataArray[indexPath.row]
+        let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutVC
         
+        // pass the data
+        aboutVC.idApi = Helper.sharedInstance.movieIdArray?[indexPath.row]
+        aboutVC.titleApi = Helper.sharedInstance.movieTitleArray?[indexPath.row]
+        aboutVC.posterApi = Helper.sharedInstance.moviePosterArray?[indexPath.row]
+        
+        
+        // Button Checking
         if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false {
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
             
         }else {
-            //            collectionView.deleteItems(at: [indexPath])
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
         }
         
@@ -124,9 +91,12 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
 }
 
-extension Sequence where Iterator.Element: Hashable {
-    func unique() -> [Iterator.Element] {
-        var seen: Set<Iterator.Element> = []
-        return filter { seen.insert($0).inserted }
-    }
-}
+
+// method for unique elements of array.
+
+//extension Sequence where Iterator.Element: Hashable {
+//    func unique() -> [Iterator.Element] {
+//        var seen: Set<Iterator.Element> = []
+//        return filter { seen.insert($0).inserted }
+//    }
+//}

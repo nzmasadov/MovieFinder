@@ -8,15 +8,13 @@
 import UIKit
 import CoreData
 
-class AboutViewController: UIViewController, MovieSecondDelegate{
+class AboutVC: UIViewController, MovieDetailedDelegate{
     
     // var fromHomeVC: Bool? = true
     
     var idApi: String?
-    
-    var savedData: MovieSecondData?
-    
-    var index: Int?
+    var posterApi: String?
+    var titleApi: String?
     
     
     @IBOutlet weak var savedButtonOutlet:UIBarButtonItem!
@@ -45,27 +43,16 @@ class AboutViewController: UIViewController, MovieSecondDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-            movieManagerStruct.delegateSecond = self
-            movieManagerStruct.performRequest(idApi!)
-            movieManagerStruct.performSecondRequest(idApi ?? "")
+        movieManagerStruct.delegateDetailed = self
+        movieManagerStruct.performRequest(idApi!)
+        movieManagerStruct.performDetailedRequest(idApi ?? "")
         
-//        guard let idApi = idApi else { return }
-//        if Helper.sharedInstance.movieIdArray.contains(idApi) != true {
-//            guard let index = Helper.sharedInstance.movieIdArray.firstIndex(of: idApi) else {return}
-//            Helper.sharedInstance.movieIdArray.remove(at: index)
-//            savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
-//            print("HuuDogruDeyil")
-//
-//        }else {
-//            savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
-//        }
-    
     }
     
-    func didSecondUpdate(_ movieManager: MovieManager, movieSecond: MovieSecondData) {
+    func didDetailedUpdate(_ movieManager: MovieManager, movieSecond: MovieDetailedData) {
         DispatchQueue.main.async {
             
-            // about vc screen items. it is coming from second api data. 
+            // about vc screen items. it is coming from second api data.
             self.movieName.text = movieSecond.title
             self.producerlabel.text = movieSecond.director
             self.posterImageView.sd_setImage(with: URL(string: movieSecond.poster))
@@ -82,35 +69,38 @@ class AboutViewController: UIViewController, MovieSecondDelegate{
     }
     
     @IBAction func savedPageClicked(_ sender: UIButton) {
+        
         guard let idApi = idApi else { return }
+        guard let titleApi = titleApi else { return }
+        guard let posterApi = posterApi else { return }
         
         // check save. if there is not movie with spesific id save move and if there is id in the array, delete the movie
         if Helper.sharedInstance.movieIdArray?.contains(idApi) ?? false {
-        //    && Helper.sharedInstance.savedDataArray.contains(savedData!) {
+
             guard let index = Helper.sharedInstance.movieIdArray?.firstIndex(of: idApi) else {return}
             Helper.sharedInstance.movieIdArray?.remove(at: index)
-
-            if let savedData = savedData {
-                guard let index2 = Helper.sharedInstance.savedDataArray.firstIndex(of: savedData) else {return}
-                Helper.sharedInstance.savedDataArray.remove(at: index2)
-            }else {
-                print("Couldn`t append element to save data array ")
-            }
+            guard let index2 = Helper.sharedInstance.movieTitleArray?.firstIndex(of: titleApi) else {return}
+            Helper.sharedInstance.movieTitleArray?.remove(at: index2)
+            guard let index3 = Helper.sharedInstance.moviePosterArray?.firstIndex(of: posterApi) else {return}
+            Helper.sharedInstance.moviePosterArray?.remove(at: index3)
             
-            NotificationCenter.default.post(name: NSNotification.Name("passSavedData"), object: nil)
             savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
             
         }else {
             
             Helper.sharedInstance.movieIdArray?.append(idApi)
+            Helper.sharedInstance.moviePosterArray?.append(posterApi)
+            Helper.sharedInstance.movieTitleArray?.append(titleApi)
+            
             savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
-            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { Timer in
-                self.navigationController?.popViewController(animated: true)
-            }
+            
+            //            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { Timer in
+            //                self.navigationController?.popViewController(animated: true)
+            //            }
             
         }
         
         NotificationCenter.default.post(name: NSNotification.Name("passData"), object: nil)
-
+        
     }
 }

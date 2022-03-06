@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieSecondData: Codable, Equatable {
+struct MovieDetailedData: Codable, Equatable {
     let title, released: String
     let runtime, genre, director, writer: String
     let actors: String

@@ -14,11 +14,11 @@
 		BF295F4727ACFD13007AFCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF295F4627ACFD13007AFCB5 /* Assets.xcassets */; };
 		BF295F4A27ACFD13007AFCB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF295F4827ACFD13007AFCB5 /* LaunchScreen.storyboard */; };
 		BF295F5227ACFE4F007AFCB5 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */; };
-		BF295F5827ACFE95007AFCB5 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5727ACFE95007AFCB5 /* UserVC.swift */; };
+		BF295F5827ACFE95007AFCB5 /* SavedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F5727ACFE95007AFCB5 /* SavedVC.swift */; };
 		BF295F6327AD17DF007AFCB5 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F6227AD17DF007AFCB5 /* Constans.swift */; };
 		BF295F6B27AD1A23007AFCB5 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */; };
-		BF40CCD127B3BFA600FF32D0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */; };
-		BF4DDD3627B6B7ED00A4A477 /* MovieSecondData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */; };
+		BF40CCD127B3BFA600FF32D0 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF40CCD027B3BFA600FF32D0 /* AboutVC.swift */; };
+		BF4DDD3627B6B7ED00A4A477 /* MovieDetailedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4DDD3527B6B7ED00A4A477 /* MovieDetailedData.swift */; };
 		BF80E46E27CA343A00223F79 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF80E46D27CA343A00223F79 /* Helper.swift */; };
 		BFB68B1027B56155003A0D1F /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB68B0F27B56155003A0D1F /* MovieManager.swift */; };
 		BFB68B1227B565D1003A0D1F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB68B1127B565D0003A0D1F /* Movie.swift */; };
@@ -35,11 +35,11 @@
 		BF295F4927ACFD13007AFCB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF295F4B27ACFD13007AFCB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		BF295F5727ACFE95007AFCB5 /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		BF295F5727ACFE95007AFCB5 /* SavedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedVC.swift; sourceTree = "<group>"; };
 		BF295F6227AD17DF007AFCB5 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
-		BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSecondData.swift; sourceTree = "<group>"; };
+		BF40CCD027B3BFA600FF32D0 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		BF4DDD3527B6B7ED00A4A477 /* MovieDetailedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailedData.swift; sourceTree = "<group>"; };
 		BF80E46D27CA343A00223F79 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		BFB68B0F27B56155003A0D1F /* MovieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
 		BFB68B1127B565D0003A0D1F /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -116,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				BF295F5127ACFE4F007AFCB5 /* HomeVC.swift */,
-				BF40CCD027B3BFA600FF32D0 /* AboutViewController.swift */,
-				BF295F5727ACFE95007AFCB5 /* UserVC.swift */,
+				BF40CCD027B3BFA600FF32D0 /* AboutVC.swift */,
+				BF295F5727ACFE95007AFCB5 /* SavedVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			children = (
 				BFB68B0F27B56155003A0D1F /* MovieManager.swift */,
 				BFB68B1127B565D0003A0D1F /* Movie.swift */,
-				BF4DDD3527B6B7ED00A4A477 /* MovieSecondData.swift */,
+				BF4DDD3527B6B7ED00A4A477 /* MovieDetailedData.swift */,
 				BF295F6A27AD1A23007AFCB5 /* MovieCollectionViewCell.swift */,
 				BFBA734127CFA3E000D615F2 /* SavedCollectionViewCell.swift */,
 				BF80E46D27CA343A00223F79 /* Helper.swift */,
@@ -262,13 +262,13 @@
 				BF80E46E27CA343A00223F79 /* Helper.swift in Sources */,
 				BFBA734227CFA3E000D615F2 /* SavedCollectionViewCell.swift in Sources */,
 				BFB68B1027B56155003A0D1F /* MovieManager.swift in Sources */,
-				BF295F5827ACFE95007AFCB5 /* UserVC.swift in Sources */,
+				BF295F5827ACFE95007AFCB5 /* SavedVC.swift in Sources */,
 				BF295F6327AD17DF007AFCB5 /* Constans.swift in Sources */,
 				BF295F3E27ACFD12007AFCB5 /* AppDelegate.swift in Sources */,
 				BF295F6B27AD1A23007AFCB5 /* MovieCollectionViewCell.swift in Sources */,
 				BF295F5227ACFE4F007AFCB5 /* HomeVC.swift in Sources */,
-				BF40CCD127B3BFA600FF32D0 /* AboutViewController.swift in Sources */,
-				BF4DDD3627B6B7ED00A4A477 /* MovieSecondData.swift in Sources */,
+				BF40CCD127B3BFA600FF32D0 /* AboutVC.swift in Sources */,
+				BF4DDD3627B6B7ED00A4A477 /* MovieDetailedData.swift in Sources */,
 				BF295F4027ACFD12007AFCB5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

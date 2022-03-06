@@ -20,7 +20,7 @@ class HomeVC: UIViewController {
     
     var movieManager = MovieManager()
     var movie: Movie?
-    var movieSecondData: MovieSecondData?
+    var movieSecondData: MovieDetailedData?
     
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class HomeVC: UIViewController {
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         collectionView.dataSource = self
         collectionView.delegate = self
-  //      collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        //      collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
         searchTextField.delegate = self
         searchTextField.backgroundColor = #colorLiteral(red: 0.9372549653, green: 0.9372549057, blue: 0.9372549057, alpha: 1)
@@ -40,11 +40,11 @@ class HomeVC: UIViewController {
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         
     }
-    }
+}
 
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width/2.0 - 10, height: 300)
+        return CGSize(width: view.frame.size.width/2.0 - 10, height: 310)
     }
 }
 
@@ -56,10 +56,9 @@ extension HomeVC: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as! MovieCollectionViewCell
+       
         DispatchQueue.main.async {
             cell.movieTitleLbl.text = self.movie?.search[indexPath.row].title
-
-         //   cell.movieRatingLbl.text = self.movie?.search[indexPath.row].year
             if let poster = self.movie?.search[indexPath.row].poster {
                 cell.movieImageView.sd_setImage(with: URL(string: (poster)))
             }
@@ -70,24 +69,31 @@ extension HomeVC: UICollectionViewDataSource{
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            if let movieId = movie?.search[indexPath.row].imdbID {
-                let board = UIStoryboard(name: "Main", bundle: nil)
-                let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutViewController
-                aboutVC.idApi = movieId
-  //              aboutVC.fromHomeVC = true
-                // Button control
-                if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false{
-                    aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
-                }else {
-                    aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
-                 //   navigationController?.popViewController(animated: true)
-                }
-
-                self.navigationController?.pushViewController(aboutVC, animated: true)
-//                present(aboutVC, animated: true, completion: nil)
+        
+        guard let movieId = movie?.search[indexPath.row].imdbID else {return}
+        guard let titleApi = movie?.search[indexPath.row].title else {return}
+        guard let posterApi = movie?.search[indexPath.row].poster else {return}
+        
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutVC
+        
+        // Pass the data
+        aboutVC.idApi = movieId
+        aboutVC.titleApi = titleApi
+        aboutVC.posterApi = posterApi
+        
+        // Button Control
+        if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false{
+            aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
+        }else {
+            aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
         }
+        
+        self.navigationController?.pushViewController(aboutVC, animated: true)
+        //    present(aboutVC, animated: true, completion: nil)
     }
 }
+
 
 extension HomeVC: MovieManagerDelegate {
     func didUpdateMovie(_ movieManager: MovieManager, movieData: Movie) {
@@ -105,7 +111,7 @@ extension HomeVC: MovieManagerDelegate {
             self.collectionView.reloadData()
         }
     }
-    func didSecondUpdate(_ movieManager: MovieManager, movieSecond: MovieSecondData) {
+    func didSecondUpdate(_ movieManager: MovieManager, movieSecond: MovieDetailedData) {
         movieSecondData = movieSecond
         DispatchQueue.main.async {
             self.collectionView.reloadData()
