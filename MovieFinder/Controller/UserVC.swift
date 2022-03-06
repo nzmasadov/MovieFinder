@@ -12,29 +12,48 @@ class UserVC: UIViewController {
     
     @IBOutlet weak var collectionViewSaved: UICollectionView!
     
-    var movie: Movie?
+    
     var movieManager = MovieManager()
     var movieSecondData: MovieSecondData?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionViewSaved.dataSource = self
         collectionViewSaved.delegate = self
         movieManager.delegateSecond = self
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("passData"), object: nil)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
-            
-            for idMovie in Helper.sharedInstance.movieIdArray {
-              
-                    movieManager.performSecondRequest(idMovie)
-                }
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.collectionViewSaved.reloadData()
+        }
+        
+        //        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollection), name: NSNotification.Name("passSavedData"), object: nil)
+    }
+    
+    @objc func getData() {
+        if let movie = Helper.sharedInstance.movieIdArray {
+            for idMovie in movie {
+                movieManager.performSecondRequest(idMovie)
+                print("HuuID\(idMovie)")
             }
         }
+    }
     
-    
+    //    @objc func reloadCollection() {
+    //        collectionViewSaved.reloadData()
+    //    }
+}
+
+
 //    override func viewWillDisappear(_ animated: Bool) {
 //        print("huuDisappear")
 //    }
@@ -44,22 +63,24 @@ extension UserVC: MovieManagerDelegate, MovieSecondDelegate {
         // movieSecondData'ya protokol ile datalari oturduk
         movieSecondData = movieSecond
         guard let movieSecondData = movieSecondData else {return}
-        
-        Helper.sharedInstance.savedDataArray.append(movieSecondData)
-        
+        if Helper.sharedInstance.savedDataArray.contains(movieSecondData) != true {
+            Helper.sharedInstance.savedDataArray.append(movieSecondData)
+            print("I append \(Helper.sharedInstance.savedDataArray)")
+        }else {
+            print("hi")
+        }
         DispatchQueue.main.async {
             self.collectionViewSaved.reloadData()
         }
+        
     }
     
     func didUpdateMovie(_ movieManager: MovieManager, movieData: Movie) {
-        movie = movieData
-        DispatchQueue.main.async {
-            self.collectionViewSaved.reloadData()
-        }
+        print("hi movie")
     }
     
     func didFailWithError(error: Error) {
+        movieSecondData = nil
         print("ERROR")
     }
 }
@@ -67,17 +88,15 @@ extension UserVC: MovieManagerDelegate, MovieSecondDelegate {
 
 extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Helper.sharedInstance.savedDataArray.count
+        return Helper.sharedInstance.movieIdArray?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewSaved.dequeueReusableCell(withReuseIdentifier: "SavedCollectionViewCell", for: indexPath) as! SavedCollectionViewCell
         DispatchQueue.main.async {
             cell.savedMovieTitle.text = Helper.sharedInstance.savedDataArray[indexPath.row].title
-             let imgUrl = Helper.sharedInstance.savedDataArray[indexPath.row].poster
+            let imgUrl = Helper.sharedInstance.savedDataArray[indexPath.row].poster
             cell.savedImgView.sd_setImage(with: URL(string: imgUrl))
-   
-            
         }
         return cell
     }
@@ -86,26 +105,28 @@ extension UserVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         return CGSize(width: view.frame.size.width/2.0 - 7, height: 330)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         
         let board = UIStoryboard(name: "Main", bundle: nil)
         let aboutVC = board.instantiateViewController(withIdentifier: "about") as! AboutViewController
+        aboutVC.idApi = Helper.sharedInstance.movieIdArray?[indexPath.row]
+        aboutVC.savedData = Helper.sharedInstance.savedDataArray[indexPath.row]
         
-        aboutVC.idApi = Helper.sharedInstance.movieIdArray[indexPath.row]
-                
-        // check save. if there is not movie with spesific id save move and if there is id in the array, delete the movie
-        if Helper.sharedInstance.movieIdArray.contains(aboutVC.idApi ?? "") {
-            Helper.sharedInstance.movieIdArray.append(aboutVC.idApi ?? "")
-            print(Helper.sharedInstance.movieIdArray)
+        if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false {
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
             
         }else {
-            guard let indeh = Helper.sharedInstance.movieIdArray.firstIndex(of: aboutVC.idApi ?? "") else {return}
-            Helper.sharedInstance.movieIdArray.remove(at: indeh)
+            //            collectionView.deleteItems(at: [indexPath])
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
         }
         
         navigationController?.pushViewController(aboutVC, animated: true)
     }
     
+}
+
+extension Sequence where Iterator.Element: Hashable {
+    func unique() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter { seen.insert($0).inserted }
+    }
 }

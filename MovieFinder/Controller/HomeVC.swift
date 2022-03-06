@@ -76,6 +76,12 @@ extension HomeVC: UICollectionViewDelegate {
                 aboutVC.idApi = movieId
   //              aboutVC.fromHomeVC = true
                 // Button control
+                if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false{
+                    aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
+                }else {
+                    aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
+                 //   navigationController?.popViewController(animated: true)
+                }
 
                 self.navigationController?.pushViewController(aboutVC, animated: true)
 //                present(aboutVC, animated: true, completion: nil)

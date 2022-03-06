@@ -11,8 +11,9 @@ import UIKit
 struct Helper {
     static var sharedInstance = Helper()
     
-    var movieIdArray: [String] = []
-    var savedDataArray: [MovieSecondData] = []
+    
+    var movieIdArray: [String]? = []
+    var savedDataArray: [MovieSecondData] = ([] as! NSArray) as! [MovieSecondData]
     
     private init() {}
 }
