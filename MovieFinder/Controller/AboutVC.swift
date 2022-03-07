@@ -42,11 +42,22 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         movieManagerStruct.delegateDetailed = self
         movieManagerStruct.performRequest(idApi!)
         movieManagerStruct.performDetailedRequest(idApi ?? "")
         
+        // we just could write code here without Notification center, it also would work.
+        NotificationCenter.default.addObserver(self, selector: #selector(checking), name: NSNotification.Name("passData"), object: nil)
+    }
+    
+    
+    @objc func checking() {
+        if Helper.sharedInstance.movieIdArray?.contains(idApi ?? "") ?? false {
+            savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
+        }else {
+            savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
+        }
     }
     
     func didDetailedUpdate(_ movieManager: MovieManager, movieSecond: MovieDetailedData) {

@@ -40,6 +40,7 @@ class HomeVC: UIViewController {
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         
     }
+    
 }
 
 extension HomeVC: UICollectionViewDelegateFlowLayout {

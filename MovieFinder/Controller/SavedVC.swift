@@ -29,10 +29,10 @@ class SavedVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
         DispatchQueue.main.async {
             self.collectionViewSaved.reloadData()
         }
-     
     }
     
     @objc func getData() {
