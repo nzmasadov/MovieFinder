@@ -418,7 +418,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="m8N-sq-MmS">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="savedempty" style="plain" id="vSg-tc-Dw3">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="savedempty" style="done" id="vSg-tc-Dw3">
                             <connections>
                                 <action selector="savedPageClicked:" destination="L5C-iT-bas" id="57Z-Yv-cuD"/>
                             </connections>

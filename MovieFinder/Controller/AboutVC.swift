@@ -16,6 +16,7 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
     var posterApi: String?
     var titleApi: String?
     
+    var defaults = UserDefaults.standard
     
     @IBOutlet weak var savedButtonOutlet:UIBarButtonItem!
     
@@ -102,6 +103,10 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
             Helper.sharedInstance.movieIdArray?.append(idApi)
             Helper.sharedInstance.moviePosterArray?.append(posterApi)
             Helper.sharedInstance.movieTitleArray?.append(titleApi)
+            
+            UserDefaults.standard.set(Helper.sharedInstance.movieIdArray, forKey: "idDefaults")
+            UserDefaults.standard.set(Helper.sharedInstance.movieTitleArray, forKey: "titleDefaults")
+            UserDefaults.standard.set(Helper.sharedInstance.moviePosterArray, forKey: "posterDefaults")
             
             savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
             

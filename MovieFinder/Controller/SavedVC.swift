@@ -12,9 +12,7 @@ class SavedVC: UIViewController {
     
     @IBOutlet weak var collectionViewSaved: UICollectionView!
     
-    
     var movieManager = MovieManager()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +23,10 @@ class SavedVC: UIViewController {
         // when user press the save button, the saved data come here.
         NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("passData"), object: nil)
         
+        Helper.sharedInstance.movieTitleArray = UserDefaults.standard.array(forKey: "titleDefaults") as? [String]
+        Helper.sharedInstance.moviePosterArray = UserDefaults.standard.array(forKey: "posterDefaults") as? [String]
+        Helper.sharedInstance.movieIdArray = UserDefaults.standard.array(forKey: "idDefaults") as? [String]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,9 +35,11 @@ class SavedVC: UIViewController {
         DispatchQueue.main.async {
             self.collectionViewSaved.reloadData()
         }
+         
     }
     
     @objc func getData() {
+                
         if let movie = Helper.sharedInstance.movieIdArray {
             for idMovie in movie {
                 // saved id came here one by one then progressing start and move to movieManager for decoding. then we gain pure data.
@@ -47,8 +51,8 @@ class SavedVC: UIViewController {
 }
 
 
-
 extension SavedVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Helper.sharedInstance.movieIdArray?.count ?? 0
     }
@@ -56,7 +60,9 @@ extension SavedVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionViewSaved.dequeueReusableCell(withReuseIdentifier: "SavedCollectionViewCell", for: indexPath) as! SavedCollectionViewCell
         DispatchQueue.main.async {
+            
             cell.savedMovieTitle.text = Helper.sharedInstance.movieTitleArray?[indexPath.row]
+            
             guard let imgUrl = Helper.sharedInstance.moviePosterArray?[indexPath.row] else {return}
             cell.savedImgView.sd_setImage(with: URL(string: imgUrl))
         }

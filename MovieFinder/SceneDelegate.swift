@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        if let tabBarController = self.window!.rootViewController as? UITabBarController {
 //            tabBarController.selectedIndex = 1
 //        }  // tab barın hansı screendən başlamağını təyin edə bilirsən
+        
+        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
     }
     
  
