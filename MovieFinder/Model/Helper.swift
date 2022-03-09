@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Helper {
-    static var sharedInstance = Helper()
+    static var shared = Helper()
     
     var movieIdArray: [String]? = []    
     var movieTitleArray: [String]? = []

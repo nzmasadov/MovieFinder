@@ -45,7 +45,7 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
         super.viewWillAppear(animated)
                 
         movieManagerStruct.delegateDetailed = self
-        movieManagerStruct.performRequest(idApi!)
+   //     movieManagerStruct.performRequest(idApi!)
         movieManagerStruct.performDetailedRequest(idApi ?? "")
         
         // we just could write code here without Notification center, it also would work.
@@ -54,7 +54,7 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
     
     
     @objc func checking() {
-        if Helper.sharedInstance.movieIdArray?.contains(idApi ?? "") ?? false {
+        if Helper.shared.movieIdArray?.contains(idApi ?? "") ?? false {
             savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
         }else {
             savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
@@ -87,26 +87,26 @@ class AboutVC: UIViewController, MovieDetailedDelegate{
         guard let posterApi = posterApi else { return }
         
         // check save. if there is not movie with spesific id save move and if there is id in the array, delete the movie
-        if Helper.sharedInstance.movieIdArray?.contains(idApi) ?? false {
+        if Helper.shared.movieIdArray?.contains(idApi) ?? false {
 
-            guard let index = Helper.sharedInstance.movieIdArray?.firstIndex(of: idApi) else {return}
-            Helper.sharedInstance.movieIdArray?.remove(at: index)
-            guard let index2 = Helper.sharedInstance.movieTitleArray?.firstIndex(of: titleApi) else {return}
-            Helper.sharedInstance.movieTitleArray?.remove(at: index2)
-            guard let index3 = Helper.sharedInstance.moviePosterArray?.firstIndex(of: posterApi) else {return}
-            Helper.sharedInstance.moviePosterArray?.remove(at: index3)
+            guard let index = Helper.shared.movieIdArray?.firstIndex(of: idApi) else {return}
+            Helper.shared.movieIdArray?.remove(at: index)
+            guard let index2 = Helper.shared.movieTitleArray?.firstIndex(of: titleApi) else {return}
+            Helper.shared.movieTitleArray?.remove(at: index2)
+            guard let index3 = Helper.shared.moviePosterArray?.firstIndex(of: posterApi) else {return}
+            Helper.shared.moviePosterArray?.remove(at: index3)
             
             savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)
             
         }else {
             
-            Helper.sharedInstance.movieIdArray?.append(idApi)
-            Helper.sharedInstance.moviePosterArray?.append(posterApi)
-            Helper.sharedInstance.movieTitleArray?.append(titleApi)
+            Helper.shared.movieIdArray?.append(idApi)
+            Helper.shared.moviePosterArray?.append(posterApi)
+            Helper.shared.movieTitleArray?.append(titleApi)
             
-            UserDefaults.standard.set(Helper.sharedInstance.movieIdArray, forKey: "idDefaults")
-            UserDefaults.standard.set(Helper.sharedInstance.movieTitleArray, forKey: "titleDefaults")
-            UserDefaults.standard.set(Helper.sharedInstance.moviePosterArray, forKey: "posterDefaults")
+            UserDefaults.standard.set(Helper.shared.movieIdArray, forKey: "idDefaults")
+            UserDefaults.standard.set(Helper.shared.movieTitleArray, forKey: "titleDefaults")
+            UserDefaults.standard.set(Helper.shared.moviePosterArray, forKey: "posterDefaults")
             
             savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
             

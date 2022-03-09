@@ -22,7 +22,6 @@ struct K {
     static let writers = "writers"
     static let awards = "awards"
     static let posterImage = "posterImage"
-    static let uuidMovie = "id"
     static let idApi = "idApi"
     
     // save button image

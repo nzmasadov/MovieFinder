@@ -84,7 +84,7 @@ extension HomeVC: UICollectionViewDelegate {
         aboutVC.posterApi = posterApi
         
         // Button Control
-        if Helper.sharedInstance.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false{
+        if Helper.shared.movieIdArray?.contains(aboutVC.idApi ?? "") ?? false{
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgFilled)
         }else {
             aboutVC.savedButtonOutlet.image = UIImage(named: K.savedImgEmpty)

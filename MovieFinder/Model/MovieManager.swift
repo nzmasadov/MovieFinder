@@ -21,41 +21,8 @@ struct MovieManager {
     var delegateDetailed: MovieDetailedDelegate?
     
     let movieUrl = "https://www.omdbapi.com/?&apikey=95e7e8fc&s="
-  //  let movieSecondUrl = "http://www.omdbapi.com/?i=&apikey=95e7e8fc"
-        
-  
-        
-    func performDetailedRequest(_ id: String) {
-        let url = "http://www.omdbapi.com/?i=\(id)&apikey=95e7e8fc"
-        guard let urlStringFormat = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
-        guard let urlString = URL(string: urlStringFormat) else {return}
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: urlString) { data, response, error in
-            if error != nil {
-                delegate?.didFailWithError(error: error!)
-            }else{
-                if let safeData = data {
-                    guard let movieSecondData = parseSecondJSON(safeData) else {return}
-                    delegateDetailed?.didDetailedUpdate(self, movieSecond: movieSecondData)
-                    print(movieSecondData.director)
-                }
-            }
-        }
-        task.resume()
-    }
+    //  let movieSecondUrl = "http://www.omdbapi.com/?i=&apikey=95e7e8fc"
     
-    
-    func parseSecondJSON(_ data: Data) -> MovieDetailedData? {
-        let decoder = JSONDecoder()
-        do{
-        let decoderdata = try decoder.decode(MovieDetailedData.self, from: data)
-            print(decoderdata.awards)
-            return decoderdata
-        }catch{
-            delegate?.didFailWithError(error: error)
-            return nil
-        }
-        }
     
     
     func performRequest(_ searchName:String) {
@@ -86,11 +53,46 @@ struct MovieManager {
             let decoderdata = try decoder.decode(Movie.self, from: data)
             print("success \(decoderdata.search[0].year)")
             return decoderdata
-           
+            
         }catch{
             print("success not errorData")
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
+    
+    
+    func performDetailedRequest(_ id: String) {
+        let url = "http://www.omdbapi.com/?i=\(id)&apikey=95e7e8fc"
+        guard let urlStringFormat = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
+        guard let urlString = URL(string: urlStringFormat) else {return}
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: urlString) { data, response, error in
+            if error != nil {
+                delegate?.didFailWithError(error: error!)
+            }else{
+                if let safeData = data {
+                    guard let movieSecondData = parseDetailedJSON(safeData) else {return}
+                    delegateDetailed?.didDetailedUpdate(self, movieSecond: movieSecondData)
+                    print(movieSecondData.director)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
+    func parseDetailedJSON(_ data: Data) -> MovieDetailedData? {
+        let decoder = JSONDecoder()
+        do{
+            let decoderdata = try decoder.decode(MovieDetailedData.self, from: data)
+            print(decoderdata.awards)
+            return decoderdata
+        }catch{
+            delegate?.didFailWithError(error: error)
+            return nil
+        }
+    }
+    
+    
 }
